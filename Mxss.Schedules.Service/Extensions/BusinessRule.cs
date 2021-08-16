@@ -11,5 +11,10 @@ namespace Mxss.Schedules.Service.Extensions
                 throw new PersonsException(message);
             }
         }
+
+        public static void ValidateFalse(bool condition, string messageCode)
+        {
+            Validate(!condition, messageCode);
+        }
     }
 }

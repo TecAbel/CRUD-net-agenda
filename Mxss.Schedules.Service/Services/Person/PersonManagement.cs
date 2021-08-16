@@ -20,7 +20,7 @@ namespace Mxss.Schedules.Service.Services.Person
         List<PersonDetail> GetPersonsByName(string name);
     }
 
-    public class PersonManagement: IPersonManagement
+    public class PersonManagement : IPersonManagement
     {
         private readonly AppSettings _appSettings;
         public PersonManagement(IOptions<AppSettings> appSettings)
@@ -33,21 +33,24 @@ namespace Mxss.Schedules.Service.Services.Person
             MxChavosSql dbContext = new MxChavosSql(_appSettings);
 
             List<PersonDetail> persons =
-                dbContext
-                    .People
-                    .Select(x => new PersonDetail(x))
-                    .ToList();
-            
-            // apply filters
+                dbContext.
+                    People.
+                        Select(x => new PersonDetail(x)).
+                        ToList();
 
-            persons = persons.Where(x =>
-                (filters.Name.IsNullOrEmpty() ||
-                 x.FullName.Contains(filters.Name, StringComparison.OrdinalIgnoreCase)) &&
-                (filters.Phone.IsNullOrEmpty() || x.Phone.Contains(filters.Phone)) &&
-                (filters.Email.IsNullOrEmpty() ||
-                 x.Email.Contains(filters.Email, StringComparison.OrdinalIgnoreCase)) &&
-                (!filters.TypePerson.HasValue || x.PersonType == filters.TypePerson.Value.Description())
-            ).ToList();
+            BusinessRule.ValidateFalse(persons.Any(), "No se encontraron contactos registrados en el sistema");
+
+            // apply filters
+            persons =
+                persons.
+                        Where(x =>
+                                (filters.Name.IsNullOrEmpty() || x.FullName.Contains(filters.Name, StringComparison.OrdinalIgnoreCase)) &&
+                                (filters.Phone.IsNullOrEmpty() || x.Phone.Contains(filters.Phone)) &&
+                                (filters.Email.IsNullOrEmpty() || x.Email.Contains(filters.Email, StringComparison.OrdinalIgnoreCase)) &&
+                                (!filters.TypePerson.HasValue || x.PersonType == filters.TypePerson.Value.Description())).
+                        ToList();
+
+            BusinessRule.ValidateFalse(persons.Any(), "No se encontraron contactos con los criterios de búsqueda ingresados");
 
             return persons;
 
@@ -58,12 +61,10 @@ namespace Mxss.Schedules.Service.Services.Person
             var dbContext = new MxChavosSql(_appSettings);
             var personType = dbContext.CatPeople.Find(newPersonRequest.PersonType);
 
-            int x = Convert.ToInt32( newPersonRequest.Name);
-            
-            BusinessRule.Validate(
-            personType == null,
-             $"El tipo de persona con el que intenta registrar a {newPersonRequest.Name} {newPersonRequest.LastName} no es válida"
-             );
+            int x = Convert.ToInt32(newPersonRequest.Name);
+
+            BusinessRule.Validate(personType == null,
+             $"El tipo de persona con el que intenta registrar a {newPersonRequest.Name} {newPersonRequest.LastName} no es válida");
 
             var personToAdd = new Entities.Person()
             {

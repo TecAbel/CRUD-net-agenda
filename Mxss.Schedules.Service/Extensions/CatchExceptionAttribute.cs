@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Mxss.Schedules.Service.Models;
 using Mxss.Schedules.Service.Models.Responses;
 
 namespace Mxss.Schedules.Service.Extensions
@@ -19,6 +18,7 @@ namespace Mxss.Schedules.Service.Extensions
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
+
             if (!context.ModelState.IsValid)
             {
                 var badResponse = new InvalidModelResponse(context.ModelState)
@@ -35,9 +35,7 @@ namespace Mxss.Schedules.Service.Extensions
             if (!context.ExceptionHandled)
             {
                 object response;
-
-                var exception = context.Exception;
-
+                Exception exception = context.Exception;
                 context.ExceptionHandled = true;
 
                 var exceptionType = exception.GetType();
@@ -55,7 +53,7 @@ namespace Mxss.Schedules.Service.Extensions
                 {
                     response = new ExceptionResponse()
                     {
-                        Message = _errorCode,
+                        Message = "Error desconocido, inteta de nuevo más tarde",
                         Data = false,
                         Exception = exception
                     };

@@ -6,7 +6,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <NoWarn>1701;1702;1591</NoWarn>
-    <DocumentationFile>C:\Users\Aquil\Documents\cursos\dotnetcore\Mxss.Schedules\Mxss.Schedules.Service\Mxss.Schedules.Service.xml</DocumentationFile>
+    <DocumentationFile>C:\Dev\GIT\MxSoftwareSolutions\CRUD-net-agenda\Mxss.Schedules.Service\Mxss.Schedules.Service.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

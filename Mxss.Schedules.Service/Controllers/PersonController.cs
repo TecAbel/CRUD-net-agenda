@@ -27,6 +27,7 @@ namespace Mxss.Schedules.Service.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("[Action]")]
+        [CatchException("Ha ocurrido un error inesperado al obtener los contactos")]
         public ActionResult<PersonDetailListResponse> Retrieve([FromQuery] PersonRequest filters)
         {
             var res = _personManagement.Retrieve(filters);

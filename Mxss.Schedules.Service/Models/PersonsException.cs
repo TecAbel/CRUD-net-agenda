@@ -1,7 +1,8 @@
 ﻿using System;
 
-namespace Mxss.Schedules
+namespace Mxss.Schedules.Service
 {
+    [Serializable]
     public class PersonsException : Exception
     {
         public PersonsException() {}
