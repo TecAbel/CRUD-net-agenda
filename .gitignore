@@ -1,5 +1,5 @@
 /.vs
 /.idea
-/Mxss.Schedules.Service/obj
-/Mxss.Schedules.Service/bin
-*.user
+/Mxss.Schedules.Service/obj 
+/Mxss.Schedules.Service/bin 
+*.user 
