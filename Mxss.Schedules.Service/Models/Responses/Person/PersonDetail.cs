@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Mxss.Schedules.Service.Entities;
+using Mxss.Schedules.Enum;
 
 namespace Mxss.Schedules.Service.Models.Responses.Person
 {
@@ -10,9 +10,8 @@ namespace Mxss.Schedules.Service.Models.Responses.Person
         public PersonDetail(Entities.Person person)
         {
             Id = person.PersonId;
-            PersonType = person.PersonType;
-            Name = person.Name;
-            LastName = person.LastName;
+            PersonType = person.PersonType.ToEnum<TypePerson>().Description();
+            FullName = person.FullName();
             Phone = person.Phone;
             Email = person.Email;
             RegisterDate = person.Registered;
@@ -20,10 +19,8 @@ namespace Mxss.Schedules.Service.Models.Responses.Person
         }
 
         public Guid Id { get; set; }
-        public int PersonType { get; set; }
-        public string Name { get; set; }
-
-        public string LastName { get; set; }
+        public string PersonType { get; set; }
+        public string FullName { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
         public DateTime RegisterDate { get; set; }

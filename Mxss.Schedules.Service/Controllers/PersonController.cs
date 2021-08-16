@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using Mxss.Schedules.Service.Extensions;
 using Mxss.Schedules.Service.Models.Requests;
 using Mxss.Schedules.Service.Models.Responses;
@@ -25,9 +27,9 @@ namespace Mxss.Schedules.Service.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("[Action]")]
-        public ActionResult<PersonDetailListResponse> Retrieve()
+        public ActionResult<PersonDetailListResponse> Retrieve([FromQuery] PersonRequest filters)
         {
-            var res = _personManagement.Retrieve();
+            var res = _personManagement.Retrieve(filters);
             return new PersonDetailListResponse()
             {
                 Data = res,
@@ -50,6 +52,43 @@ namespace Mxss.Schedules.Service.Controllers
             {
                 Data = true,
                 Message = $"El nuevo contacto {request.Name} fue agregado"
+            };
+        }
+
+        /// <summary>
+        /// Obtiene contacto por id 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("contact/{id}")]
+        [CatchException("Ha ocurrido un error al intentar obtener el contacto")]
+        public ActionResult<BaseResponse<PersonDetail>> PersonById(Guid id)
+        {
+            Console.WriteLine(id);
+            var person = _personManagement.GetPersonById(id);
+            Console.WriteLine(person);
+            return new BaseResponse<PersonDetail>()
+            {
+                Data = person,
+                Message = "Se obtuvo el contacto correctamente"
+            };
+        }
+
+        
+        /// <summary>
+        /// Obtiene los contactos por nombre
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        [HttpGet("contact")]
+        [CatchException("Ha ocurrido un error al intentar obtener los contactos")]
+        public ActionResult<BaseResponse<List<PersonDetail>>> GetByName([FromQuery] string name)
+        {
+            var persons = _personManagement.GetPersonsByName(name);
+            return new BaseResponse<List<PersonDetail>>()
+            {
+                Data = persons,
+                Message = "Se obtuvieron los contactos correctamente"
             };
         }
 

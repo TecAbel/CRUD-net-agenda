@@ -10,7 +10,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Mxss.Schedules.Service.Controllers.PersonController.Retrieve">
+        <member name="M:Mxss.Schedules.Service.Controllers.PersonController.Retrieve(Mxss.Schedules.Service.Models.Requests.PersonRequest)">
             <summary>
             Obtiene el listado de personas registradas
             </summary>
@@ -21,6 +21,40 @@
             Registra una nueva persona en la agenda
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:Mxss.Schedules.Service.Controllers.PersonController.PersonById(System.Guid)">
+            <summary>
+            Obtiene contacto por id 
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Mxss.Schedules.Service.Controllers.PersonController.GetByName(System.String)">
+            <summary>
+            Obtiene los contactos por nombre
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Mxss.Schedules.Service.Models.Requests.PersonRequest.Name">
+            <summary>
+            Nombre de la persona
+            </summary>
+        </member>
+        <member name="P:Mxss.Schedules.Service.Models.Requests.PersonRequest.Email">
+            <summary>
+            Correo electrónico de la persona
+            </summary>
+        </member>
+        <member name="P:Mxss.Schedules.Service.Models.Requests.PersonRequest.Phone">
+            <summary>
+            Número de la persona
+            </summary>
+        </member>
+        <member name="P:Mxss.Schedules.Service.Models.Requests.PersonRequest.TypePerson">
+            <summary>
+            Tipo de persona: 1 = Familia, 2 = Amigos, 3 = Trabajo, 4 = Servicios
+            </summary>
         </member>
     </members>
 </doc>
