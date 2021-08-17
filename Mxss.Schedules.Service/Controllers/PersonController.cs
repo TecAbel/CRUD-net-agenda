@@ -48,11 +48,30 @@ namespace Mxss.Schedules.Service.Controllers
         [CatchException("Ha ocurrido un error al intentar registrar un nuevo contacto")]
         public ActionResult<ActionResponse> NewPerson(NewPersonRequest request)
         {
-            _personManagement.AddPerson(request);
+            _personManagement.AddPerson(request, null);
             return new ActionResponse()
             {
                 Data = true,
                 Message = $"El nuevo contacto {request.Name} fue agregado"
+            };
+        }
+
+        /// <summary>
+        /// Actualiza un contacto
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="newPersonRequest"></param>
+        /// <returns></returns>
+        [HttpPut("{id}")]
+        [CatchException("Ha ocurrido un error al intentar actualizar el contacto")]
+        public ActionResult<ActionResponse> UpdatePerson(Guid id, [FromBody] NewPersonRequest newPersonRequest)
+        {
+            _personManagement.AddPerson(newPersonRequest, id);
+            return new ActionResponse()
+            {
+                Data = true,
+                Message =
+                    $"El usuario {newPersonRequest.Name} {newPersonRequest.LastName}, fue actualizado correctamente"
             };
         }
 

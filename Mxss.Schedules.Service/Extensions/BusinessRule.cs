@@ -1,6 +1,4 @@
-﻿using Mxss.Schedules.Service.Models;
-
-namespace Mxss.Schedules.Service.Extensions
+﻿namespace Mxss.Schedules.Service.Extensions
 {
     public static class BusinessRule
     {
